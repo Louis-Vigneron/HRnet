@@ -6,6 +6,7 @@
     background-color: $color_6;
     font-size: 18px;
     flex-grow: 1;
+
     &__filter {
         display: flex;
         justify-content: space-between;
@@ -41,6 +42,7 @@
         border-radius: 20px;
 
         &__header {
+            padding: 25px 0;
             display: flex;
             justify-content: space-between;
             width: 100%;
@@ -50,6 +52,12 @@
             font-size: 20px;
 
             &__text {
+                background: none;
+                border: none;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 width: 10%;
                 text-align: center;
             }
@@ -58,6 +66,7 @@
         &__data {
             width: 100%;
             font-size: 20px;
+
             &__info {
                 width: 100%;
                 height: 75px;
@@ -67,7 +76,7 @@
                 border-bottom: 1px solid $color_1;
                 border-radius: 5px;
                 transition: 0.5s;
-             
+
                 &__text {
                     width: 10%;
                     text-align: center;
@@ -96,7 +105,7 @@
         justify-content: space-between;
         flex-wrap: wrap;
         width: 90%;
-        
+
         &__text {
             font-size: 18px;
             width: 100%;
@@ -109,6 +118,7 @@
             justify-content: center;
             font-size: 18px;
             width: 100%;
+
             &__box {
                 display: flex;
                 justify-content: center;
@@ -127,6 +137,7 @@
                     justify-content: center;
                     cursor: pointer;
                     border: 2px solid transparent;
+
                     &:hover {
                         background-color: $color_4;
                         border: 2px solid $color_black;
@@ -138,18 +149,20 @@
                     }
                 }
             }
-            &__button{
-                border-radius: 25px;            
-                border: 2px solid $color_1;           
-                background-color: $color_2; 
+
+            &__button {
+                border-radius: 25px;
+                border: 2px solid $color_1;
+                background-color: $color_2;
                 transition: 0.5s;
                 padding: 5px 15px;
-                width: 85px;                
+                width: 85px;
                 cursor: pointer;
-                &:hover{
+
+                &:hover {
                     background-color: $color_4;
-                    color: $color_2;    
-                    border: 2px solid $color_black; 
+                    color: $color_2;
+                    border: 2px solid $color_black;
                 }
             }
 
@@ -157,27 +170,73 @@
 
     }
 
-    &__state{
+    &__state {
         width: 80%;
         display: flex;
         justify-content: center;
         border-top: 1px solid $color_black;
         margin: 25px;
         padding: 25px;
-        &__button{
+
+        &__button {
             padding: 5px 0;
             font-size: 24px;
-            border-radius: 25px;            
-            border: 2px solid $color_1;           
-            background-color: $color_2; 
+            border-radius: 25px;
+            border: 2px solid $color_1;
+            background-color: $color_2;
             transition: 0.5s;
             width: 20%;
-            margin:0 25px;
-            &:hover{
+            margin: 0 25px;
+
+            &:hover {
                 background-color: $color_4;
-                color: $color_2;    
-                border: 2px solid $color_black; 
+                color: $color_2;
+                border: 2px solid $color_black;
             }
         }
+    }
+}
+
+.arrows {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 2px;
+    display: flex;
+    position: relative;
+    left: 10px;
+    flex-direction: column;
+    width: 0;
+
+    &__up {
+        border-width: 0 5px 5px 5px;
+        border-color: transparent transparent $color_black transparent;
+        margin-bottom: 3px;
+        &--active{
+            border-color:  transparent transparent $color_black transparent;
+        }
+        &--unactive{
+            border-color:  transparent transparent $color_3 transparent;
+        }
+    }
+
+    &__down {
+
+        border-width: 5px 5px 0 5px;
+        border-color: $color_black transparent transparent transparent;
+        &--active{
+            border-color: $color_black transparent transparent transparent;
+        }
+        &--unactive{
+            border-color: $color_3 transparent transparent transparent;
+        }
+    }
+
+    &__up,
+    &__down {
+        width: 0;
+        height: 0;
+        border-style: solid;
+       
     }
 }

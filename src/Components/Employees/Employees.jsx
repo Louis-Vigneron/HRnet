@@ -2,17 +2,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { populate, clear, store } from '../../Utils/Redux';
 import { useState, useEffect } from 'react';
 
-store.subscribe(() => console.log(store.getState().employees))
-
 export default function Employees() {
+    const totalEmployees = useSelector((state) => state.employees.length);
+    const employees = useSelector((state) => state.employees);
+
+
     const dispatch = useDispatch();
     const [selectValue, setSelectValue] = useState(10);
     const [index, setIndex] = useState(1);
-    const totalEmployees = useSelector((state) => state.employees.length);
-    const employees = useSelector((state) => state.employees);
+    const [sortEmployee, setSortEmployee] = useState(employees);
+
     let numberPage = Math.ceil(totalEmployees / selectValue)
 
     useEffect(() => {
+
         let numberPage = document.querySelector('.employees__page__nav__box')
         numberPage.innerHTML = ''
         for (let x = 0; x < Math.ceil(totalEmployees / selectValue); x++) {
@@ -21,22 +24,24 @@ export default function Employees() {
             } else {
                 numberPage.innerHTML += `<button class="employees__page__nav__box__numberPage" id="${x + 1}">${x + 1}</button>`
             }
-        };    
+        };
         let test = document.querySelectorAll('.employees__page__nav__box__numberPage')
-        test.forEach(el =>{
-            el.addEventListener('click',handleSelectPage)
+        test.forEach(el => {
+            el.addEventListener('click', handleSelectPage)
         })
-
     }, [totalEmployees, selectValue]);
+
 
     const handleClearClick = () => {
         dispatch(clear())
+        setIndex(1);
     }
     const handlePopulateClick = () => {
         dispatch(populate())
+        setSortEmployee(store.getState().employees)
     }
-    const handleSelectChange = (event) => {
-        setSelectValue(event.target.value)
+    const handleSelectChange = (e) => {
+        setSelectValue(e.target.value)
         setIndex(1);
     }
     const handleNext = () => {
@@ -45,7 +50,7 @@ export default function Employees() {
             if (currentPage !== numberPage) {
                 let allPages = document.querySelectorAll('.employees__page__nav__box__numberPage')
                 allPages.forEach((el) => {
-                       el.classList = 'employees__page__nav__box__numberPage'
+                    el.classList = 'employees__page__nav__box__numberPage'
                 })
                 const newIndex = currentPage + 1;
                 let newCurrentPage = document.getElementById(newIndex)
@@ -60,7 +65,7 @@ export default function Employees() {
             if (currentPage !== 1) {
                 let allPages = document.querySelectorAll('.employees__page__nav__box__numberPage')
                 allPages.forEach((el) => {
-                       el.classList = 'employees__page__nav__box__numberPage'
+                    el.classList = 'employees__page__nav__box__numberPage'
                 })
                 const newIndex = currentPage - 1;
                 let newCurrentPage = document.getElementById(newIndex)
@@ -68,11 +73,11 @@ export default function Employees() {
                 setIndex(newIndex);
             }
         }
-    };
+    }
     const handleSelectPage = (e) => {
         let allPages = document.querySelectorAll('.employees__page__nav__box__numberPage')
         allPages.forEach((el) => {
-               el.classList = 'employees__page__nav__box__numberPage'
+            el.classList = 'employees__page__nav__box__numberPage'
         })
         let newIndex = e.target.id;
         setIndex(newIndex);
@@ -80,9 +85,56 @@ export default function Employees() {
         newCurrentPage.classList = 'employees__page__nav__box__numberPage employees__page__nav__box__numberPage--currentPage'
     }
 
+    const sortByFilter = (e) => {
+        let filter = e.target.id
+        let test = e.target
+        let resetUp = document.querySelectorAll('.arrows__up')
+        let resetDown = document.querySelectorAll('.arrows__down')
+        if (test.querySelector('.arrows__up').classList[1] === 'arrows__up--active') {
+            resetUp.forEach(el =>{
+                el.classList = 'arrows__up'
+            })
+            resetDown.forEach(el =>{
+                el.classList = 'arrows__down'
+            })
+            test.querySelector('.arrows__down').classList = 'arrows__down arrows__down--active'            
+            test.querySelector('.arrows__up').classList = 'arrows__up arrows__up--unactive'
+            const customSort = (a, b) => {
+                if (a.employee[filter] < b.employee[filter]) return 1;
+                if (a.employee[filter] > b.employee[filter]) return -1;
+                return 0;
+            };
+            let copyEmployee = [...employees]
+            copyEmployee.sort(customSort)
+            setSortEmployee(copyEmployee)
+        } else {
+            resetUp.forEach(el =>{
+                el.classList = 'arrows__up'
+            })
+            resetDown.forEach(el =>{
+                el.classList = 'arrows__down'
+            })
+            test.querySelector('.arrows__up').classList = 'arrows__up arrows__up--active'
+            test.querySelector('.arrows__down').classList = 'arrows__down arrows__down--unactive'
+            const customSort = (a, b) => {
+                if (a.employee[filter] < b.employee[filter]) return -1;
+                if (a.employee[filter] > b.employee[filter]) return 1;
+                return 0;
+            };
+            let copyEmployee = [...employees]
+            copyEmployee.sort(customSort)
+            setSortEmployee(copyEmployee)
+        }
+
+
+
+    }
+
+
     const idMin = totalEmployees ? (selectValue * index) - selectValue + 1 : 0;
     const idMax = Math.min((selectValue * index), totalEmployees);
-    const filteredEmployees = employees.filter(item => item.id >= idMin && item.id <= idMax);
+    const filteredEmployees = sortEmployee.slice(idMin - 1, idMax);
+
     return (
         <div className="employees">
             <h2 className="employees__title">Current Employees</h2>
@@ -105,15 +157,61 @@ export default function Employees() {
 
             <div className="employees__table">
                 <div className="employees__table__header">
-                    <p className="employees__table__header__text">First Name</p>
-                    <p className="employees__table__header__text">Last Name</p>
-                    <p className="employees__table__header__text">Start Date</p>
-                    <p className="employees__table__header__text">Department</p>
-                    <p className="employees__table__header__text">Date of Birth</p>
-                    <p className="employees__table__header__text">Street</p>
-                    <p className="employees__table__header__text">City</p>
-                    <p className="employees__table__header__text">State</p>
-                    <p className="employees__table__header__text">Zip Code</p>
+                    <button className="employees__table__header__text" id='firstName' onClick={sortByFilter}>First Name
+                        <div className='arrows'>
+                            <span className="arrows__up"></span>
+                            <span className="arrows__down"></span>
+                        </div>
+
+                    </button>
+                    <button className="employees__table__header__text" id='lastName' onClick={sortByFilter}>Last Name
+                        <div className='arrows'>
+                            <span className="arrows__up"></span>
+                            <span className="arrows__down"></span>
+                        </div>
+                    </button>
+                    <button className="employees__table__header__text" id='startDate' onClick={sortByFilter}>Start Date
+                        <div className='arrows'>
+                            <span className="arrows__up"></span>
+                            <span className="arrows__down"></span>
+                        </div>
+                    </button>
+                    <button className="employees__table__header__text" id='department' onClick={sortByFilter}>Department
+                        <div className='arrows'>
+                            <span className="arrows__up"></span>
+                            <span className="arrows__down"></span>
+                        </div>
+                    </button>
+                    <button className="employees__table__header__text" id='dateOfBirth' onClick={sortByFilter}>Date of Birth
+                        <div className='arrows'>
+                            <span className="arrows__up"></span>
+                            <span className="arrows__down"></span>
+                        </div>
+                    </button>
+                    <button className="employees__table__header__text" id='street' onClick={sortByFilter}>Street
+                        <div className='arrows'>
+                            <span className="arrows__up"></span>
+                            <span className="arrows__down"></span>
+                        </div>
+                    </button>
+                    <button className="employees__table__header__text" id='city' onClick={sortByFilter}>City
+                        <div className='arrows'>
+                            <span className="arrows__up"></span>
+                            <span className="arrows__down"></span>
+                        </div>
+                    </button>
+                    <button className="employees__table__header__text" id='state' onClick={sortByFilter}>State
+                        <div className='arrows'>
+                            <span className="arrows__up"></span>
+                            <span className="arrows__down"></span>
+                        </div>
+                    </button>
+                    <button className="employees__table__header__text" id='zipCode' onClick={sortByFilter}>Zip Code
+                        <div className='arrows'>
+                            <span className="arrows__up"></span>
+                            <span className="arrows__down"></span>
+                        </div>
+                    </button>
                 </div>
 
                 <div className="employees__table__data">

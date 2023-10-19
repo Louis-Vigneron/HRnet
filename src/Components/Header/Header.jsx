@@ -10,11 +10,11 @@ export default function Header() {
                 <NavLink to="/" className={({ isActive }) => {
                     return "header__nav__link header__nav__link" + (isActive ? "--line" : "")
                 }}>
-                    Home</NavLink>
+                    Create Employee</NavLink>
                 <NavLink to="/employees" className={({ isActive }) => {
                     return "header__nav__link header__nav__link" + (isActive ? "--line" : "")
                 }}>
-                    A View Current Employees</NavLink>
+                    Current Employees</NavLink>
             </nav>
         </header>
     )

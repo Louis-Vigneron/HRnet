@@ -185,6 +185,7 @@ a {
   border-radius: 20px;
 }
 .employees__table__header {
+  padding: 25px 0;
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -194,6 +195,12 @@ a {
   font-size: 20px;
 }
 .employees__table__header__text {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 10%;
   text-align: center;
 }
@@ -309,4 +316,42 @@ a {
   background-color: #C36244;
   color: #ECECEE;
   border: 2px solid #000000;
+}
+
+.arrows {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 2px;
+  display: flex;
+  position: relative;
+  left: 10px;
+  flex-direction: column;
+  width: 0;
+}
+.arrows__up {
+  border-width: 0 5px 5px 5px;
+  border-color: transparent transparent #000000 transparent;
+  margin-bottom: 3px;
+}
+.arrows__up--active {
+  border-color: transparent transparent #000000 transparent;
+}
+.arrows__up--unactive {
+  border-color: transparent transparent #939799 transparent;
+}
+.arrows__down {
+  border-width: 5px 5px 0 5px;
+  border-color: #000000 transparent transparent transparent;
+}
+.arrows__down--active {
+  border-color: #000000 transparent transparent transparent;
+}
+.arrows__down--unactive {
+  border-color: #939799 transparent transparent transparent;
+}
+.arrows__up, .arrows__down {
+  width: 0;
+  height: 0;
+  border-style: solid;
 }/*# sourceMappingURL=main.css.map */
