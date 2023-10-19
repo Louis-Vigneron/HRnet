@@ -11,7 +11,7 @@ export default function Employees() {
     const [selectValue, setSelectValue] = useState(10);
     const [index, setIndex] = useState(1);
     let [sortEmployee, setSortEmployee] = useState(employees);
-    const [test, setTest] = useState(employees);
+    const [backUp, setBackUp] = useState(employees);
     let totalEmployees = sortEmployee.length;
     let numberPage = Math.ceil(totalEmployees / selectValue)
 
@@ -25,8 +25,8 @@ export default function Employees() {
                 numberPage.innerHTML += `<button class="employees__page__nav__box__numberPage" id="${x + 1}">${x + 1}</button>`
             }
         };
-        let test = document.querySelectorAll('.employees__page__nav__box__numberPage')
-        test.forEach(el => {
+        let backUp = document.querySelectorAll('.employees__page__nav__box__numberPage')
+        backUp.forEach(el => {
             el.addEventListener('click', handleSelectPage)
         })
     }, [totalEmployees, selectValue]);
@@ -34,14 +34,16 @@ export default function Employees() {
 
     const handleClearClick = () => {
         dispatch(clear())        
-        setSortEmployee('')
+        setSortEmployee([])
+        setBackUp([])
         setIndex(1);
         document.getElementById('search').value = ''
     }
     const handlePopulateClick = () => {
         dispatch(populate())
         setSortEmployee(store.getState().employees)
-        setTest(store.getState().employees)
+        setBackUp(store.getState().employees)
+        document.getElementById('search').value = ''
     }
     const handleSelectChange = (e) => {
         setSelectValue(e.target.value)
@@ -109,9 +111,10 @@ export default function Employees() {
             };
             let copyEmployee = [...sortEmployee]
             let backUp = [...employees]
-            copyEmployee.sort(customSort)
+            copyEmployee.sort(customSort)            
+            backUp.sort(customSort)
             setSortEmployee(copyEmployee)
-            setTest(backUp)
+            setBackUp(backUp)
         } else {
             resetUp.forEach(el => {
                 el.classList = 'arrows__up'
@@ -129,15 +132,13 @@ export default function Employees() {
             let copyEmployee = [...sortEmployee]
             let backUp = [...employees]
             copyEmployee.sort(customSort)
+            backUp.sort(customSort)
             setSortEmployee(copyEmployee)
-            setTest(backUp)
+            setBackUp(backUp)
         }
     }
-    const handleSearch = (e) => {        
-        console.log(test)
-        console.log(sortEmployee)
-        
-        sortEmployee = test
+    const handleSearch = (e) => {       
+        sortEmployee = backUp
         let value = e.target.value.toLowerCase()
         let searchEmployee = sortEmployee.filter(item => JSON.stringify(item).toLowerCase().includes(value))
         setSortEmployee(searchEmployee)
