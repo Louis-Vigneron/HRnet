@@ -1,6 +1,13 @@
 import { states, departement } from "../../Data/data"
+import { useDispatch } from 'react-redux';
+import { add } from '../../Utils/Redux';
 
 export default function Create() {
+    const dispatch = useDispatch();
+    const handleAddClick = (e) => {
+        e.preventDefault()
+        dispatch(add('newValue'));
+      };
     return (
         <div className="create">
             <h2 className="create__title">Create Employee</h2>
@@ -32,7 +39,7 @@ export default function Create() {
                     <label className="create__form__label" htmlFor="startDate">Zip Code</label>
                     <input className="create__form__input" type="number" />
                 </div>
-                <button className="create__form__button" type="submit">Save</button>
+                <button onClick={handleAddClick} className="create__form__button" type="submit">Save</button>
             </form>
         </div>
     )

@@ -1,0 +1,183 @@
+.employees {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: $color_6;
+    font-size: 18px;
+    flex-grow: 1;
+    &__filter {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 90%;
+
+        &__show {
+            display: flex;
+            align-items: center;
+
+            &__text {
+                margin: 0 10px;
+            }
+        }
+
+        &__search {
+            &__label {
+                margin-right: 15px;
+            }
+        }
+    }
+
+    &__title {
+        font-size: 32px;
+    }
+
+    &__table {
+        flex-grow: 1;
+        margin: 25px 0;
+        width: 90%;
+        border: 5px solid $color_1;
+        background-color: $color_2;
+        border-radius: 20px;
+
+        &__header {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            border-radius: 15px 15px 0 0;
+            background-color: $color_5;
+            border-bottom: 2px solid $color_black;
+            font-size: 20px;
+
+            &__text {
+                width: 10%;
+                text-align: center;
+            }
+        }
+
+        &__data {
+            width: 100%;
+            font-size: 20px;
+            &__info {
+                width: 100%;
+                height: 75px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid $color_1;
+                border-radius: 5px;
+                transition: 0.5s;
+             
+                &__text {
+                    width: 10%;
+                    text-align: center;
+                    margin: 0;
+                }
+
+                &:hover {
+                    background-color: $color_4;
+                }
+            }
+
+            &__empty {
+                text-align: center;
+                width: 100%;
+                height: 100%;
+                font-size: 30px;
+                margin: 0;
+                position: relative;
+                top: 55px;
+            }
+        }
+    }
+
+    &__page {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        width: 90%;
+        
+        &__text {
+            font-size: 18px;
+            width: 100%;
+            text-align: center;
+        }
+
+        &__nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            width: 100%;
+            &__box {
+                display: flex;
+                justify-content: center;
+                margin: 0 10px;
+
+                &__numberPage {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 100%;
+                    margin: 0;
+                    transition: 0.5s;
+                    margin: 0 5px;
+                    text-align: center;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    border: 2px solid transparent;
+                    &:hover {
+                        background-color: $color_4;
+                        border: 2px solid $color_black;
+                    }
+
+                    &--currentPage {
+                        background-color: $color_4;
+                        border: 2px solid $color_black;
+                    }
+                }
+            }
+            &__button{
+                border-radius: 25px;            
+                border: 2px solid $color_1;           
+                background-color: $color_2; 
+                transition: 0.5s;
+                padding: 5px 15px;
+                width: 85px;                
+                cursor: pointer;
+                &:hover{
+                    background-color: $color_4;
+                    color: $color_2;    
+                    border: 2px solid $color_black; 
+                }
+            }
+
+        }
+
+    }
+
+    &__state{
+        width: 80%;
+        display: flex;
+        justify-content: center;
+        border-top: 1px solid $color_black;
+        margin: 25px;
+        padding: 25px;
+        &__button{
+            padding: 5px 0;
+            font-size: 24px;
+            border-radius: 25px;            
+            border: 2px solid $color_1;           
+            background-color: $color_2; 
+            transition: 0.5s;
+            width: 20%;
+            margin:0 25px;
+            &:hover{
+                background-color: $color_4;
+                color: $color_2;    
+                border: 2px solid $color_black; 
+            }
+        }
+    }
+}
