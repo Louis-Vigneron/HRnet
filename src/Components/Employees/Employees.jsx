@@ -3,19 +3,19 @@ import { populate, clear, store } from '../../Utils/Redux';
 import { useState, useEffect } from 'react';
 
 export default function Employees() {
-    const totalEmployees = useSelector((state) => state.employees.length);
+   /*  const totalEmployees = useSelector((state) => state.employees.length); */
     const employees = useSelector((state) => state.employees);
 
 
     const dispatch = useDispatch();
     const [selectValue, setSelectValue] = useState(10);
     const [index, setIndex] = useState(1);
-    const [sortEmployee, setSortEmployee] = useState(employees);
-
+    let [sortEmployee, setSortEmployee] = useState(employees);
+    const [test, setTest] = useState(employees);
+    let totalEmployees = sortEmployee.length;
     let numberPage = Math.ceil(totalEmployees / selectValue)
 
     useEffect(() => {
-
         let numberPage = document.querySelector('.employees__page__nav__box')
         numberPage.innerHTML = ''
         for (let x = 0; x < Math.ceil(totalEmployees / selectValue); x++) {
@@ -33,12 +33,15 @@ export default function Employees() {
 
 
     const handleClearClick = () => {
-        dispatch(clear())
+        dispatch(clear())        
+        setSortEmployee('')
         setIndex(1);
+        document.getElementById('search').value = ''
     }
     const handlePopulateClick = () => {
         dispatch(populate())
         setSortEmployee(store.getState().employees)
+        setTest(store.getState().employees)
     }
     const handleSelectChange = (e) => {
         setSelectValue(e.target.value)
@@ -87,47 +90,57 @@ export default function Employees() {
 
     const sortByFilter = (e) => {
         let filter = e.target.id
-        let test = e.target
+        let arrows = e.target
         let resetUp = document.querySelectorAll('.arrows__up')
         let resetDown = document.querySelectorAll('.arrows__down')
-        if (test.querySelector('.arrows__up').classList[1] === 'arrows__up--active') {
-            resetUp.forEach(el =>{
+        if (arrows.querySelector('.arrows__up').classList[1] === 'arrows__up--active') {
+            resetUp.forEach(el => {
                 el.classList = 'arrows__up'
             })
-            resetDown.forEach(el =>{
+            resetDown.forEach(el => {
                 el.classList = 'arrows__down'
             })
-            test.querySelector('.arrows__down').classList = 'arrows__down arrows__down--active'            
-            test.querySelector('.arrows__up').classList = 'arrows__up arrows__up--unactive'
+            arrows.querySelector('.arrows__down').classList = 'arrows__down arrows__down--active'
+            arrows.querySelector('.arrows__up').classList = 'arrows__up arrows__up--unactive'
             const customSort = (a, b) => {
                 if (a.employee[filter] < b.employee[filter]) return 1;
                 if (a.employee[filter] > b.employee[filter]) return -1;
                 return 0;
             };
-            let copyEmployee = [...employees]
+            let copyEmployee = [...sortEmployee]
+            let backUp = [...employees]
             copyEmployee.sort(customSort)
             setSortEmployee(copyEmployee)
+            setTest(backUp)
         } else {
-            resetUp.forEach(el =>{
+            resetUp.forEach(el => {
                 el.classList = 'arrows__up'
             })
-            resetDown.forEach(el =>{
+            resetDown.forEach(el => {
                 el.classList = 'arrows__down'
             })
-            test.querySelector('.arrows__up').classList = 'arrows__up arrows__up--active'
-            test.querySelector('.arrows__down').classList = 'arrows__down arrows__down--unactive'
+            arrows.querySelector('.arrows__up').classList = 'arrows__up arrows__up--active'
+            arrows.querySelector('.arrows__down').classList = 'arrows__down arrows__down--unactive'
             const customSort = (a, b) => {
                 if (a.employee[filter] < b.employee[filter]) return -1;
                 if (a.employee[filter] > b.employee[filter]) return 1;
                 return 0;
             };
-            let copyEmployee = [...employees]
+            let copyEmployee = [...sortEmployee]
+            let backUp = [...employees]
             copyEmployee.sort(customSort)
             setSortEmployee(copyEmployee)
+            setTest(backUp)
         }
-
-
-
+    }
+    const handleSearch = (e) => {        
+        console.log(test)
+        console.log(sortEmployee)
+        
+        sortEmployee = test
+        let value = e.target.value.toLowerCase()
+        let searchEmployee = sortEmployee.filter(item => JSON.stringify(item).toLowerCase().includes(value))
+        setSortEmployee(searchEmployee)
     }
 
 
@@ -151,7 +164,7 @@ export default function Employees() {
                 </div>
                 <div className="employees__filter__search">
                     <label className="employees__filter__search__label" htmlFor="search">Search :</label>
-                    <input type="text" />
+                    <input type="text" onChange={handleSearch} id='search' />
                 </div>
             </div>
 

@@ -331,7 +331,7 @@ a {
 }
 .arrows__up {
   border-width: 0 5px 5px 5px;
-  border-color: transparent transparent #000000 transparent;
+  border-color: transparent transparent #2B3A3E transparent;
   margin-bottom: 3px;
 }
 .arrows__up--active {
@@ -342,7 +342,7 @@ a {
 }
 .arrows__down {
   border-width: 5px 5px 0 5px;
-  border-color: #000000 transparent transparent transparent;
+  border-color: #2B3A3E transparent transparent transparent;
 }
 .arrows__down--active {
   border-color: #000000 transparent transparent transparent;

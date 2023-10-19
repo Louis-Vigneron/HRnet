@@ -210,7 +210,7 @@
 
     &__up {
         border-width: 0 5px 5px 5px;
-        border-color: transparent transparent $color_black transparent;
+        border-color: transparent transparent $color_1 transparent;
         margin-bottom: 3px;
         &--active{
             border-color:  transparent transparent $color_black transparent;
@@ -223,7 +223,7 @@
     &__down {
 
         border-width: 5px 5px 0 5px;
-        border-color: $color_black transparent transparent transparent;
+        border-color: $color_1 transparent transparent transparent;
         &--active{
             border-color: $color_black transparent transparent transparent;
         }
