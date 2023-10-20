@@ -105,7 +105,7 @@ export default function Employees() {
             arrows.querySelector('.arrows__down').classList = 'arrows__down arrows__down--active'
             arrows.querySelector('.arrows__up').classList = 'arrows__up arrows__up--unactive'
             const customSort = (a, b) => {
-                if([filter] == 'dateOfBirth' || [filter] == 'startDate'){
+                if(filter === 'dateOfBirth' || filter === 'startDate'){
                     const dateA = new Date(a.employee[filter]);
                     const dateB = new Date(b.employee[filter]);
                     if (dateA < dateB) return 1;
@@ -134,7 +134,7 @@ export default function Employees() {
             arrows.querySelector('.arrows__up').classList = 'arrows__up arrows__up--active'
             arrows.querySelector('.arrows__down').classList = 'arrows__down arrows__down--unactive'
             const customSort = (a, b) => {
-                if([filter] == 'dateOfBirth' || [filter] == 'startDate'){
+                if(filter === 'dateOfBirth' || filter === 'startDate'){
                     const dateA = new Date(a.employee[filter]);
                     const dateB = new Date(b.employee[filter]);
                     if (dateA < dateB) return -1;
