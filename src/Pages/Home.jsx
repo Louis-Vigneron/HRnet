@@ -4,7 +4,7 @@ import Create from "../Components/Create/Create";
 
 export default function Home(){
     return(
-        <>
+        <>           
             <Header/>
             <Create />
             <Footer />

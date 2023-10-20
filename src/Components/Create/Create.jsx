@@ -1,8 +1,11 @@
 import { states, departement } from "../../Data/data"
 import { useDispatch } from 'react-redux';
 import { add } from '../../Utils/Redux';
+import Modal from "../Modal/Modal";
+import { useState } from "react";
 
 export default function Create() {
+    const [newEmployee, setNewEmployee] = useState([])
     const dispatch = useDispatch();
     const handleAddClick = (e) => {
         e.preventDefault()
@@ -15,7 +18,7 @@ export default function Create() {
         const inputCity = document.getElementById('inputCity')
         const inputState = document.getElementById('inputState')
         const inputZipCode = document.getElementById('inputZipCode')        
-
+              
         checkInput(inputFirstName, regexName) 
         checkInput(inputLastName, regexName) 
         checkInput(inputDateBirth, regexDate) 
@@ -31,7 +34,7 @@ export default function Create() {
             !checkInput(inputStreet, regexAddress) &&
             !checkInput(inputCity, regexCity) &&
             !checkInput(inputZipCode, regexZipCode)) {
-            const newEmployee = {
+            const newEmployeeData = {
                 "id": Math.floor(Math.random() * (1000 - 250 + 1)) + 250,
                 "employee": {
                     "firstName": inputFirstName.value,
@@ -45,13 +48,32 @@ export default function Create() {
                     "zipCode": inputZipCode.value
                 }
             }
-            dispatch(add(newEmployee));
+            setNewEmployee(newEmployeeData)
+            let openModal = document.querySelector('.modal')
+            openModal.style.display ='block'
+            //
         }
 
 
     };
+    const handleCancelClick = () =>{
+        let closeModal = document.querySelector('.modal')
+        closeModal.style.display ='none'
+    }
+    const handleConfirmClick = () =>{
+        let closeModal = document.querySelector('.modal')
+        const clearInputs = document.querySelectorAll('.create__form__input')
+        clearInputs.forEach(el =>{
+            el.value = ''
+        })
+        closeModal.style.display ='none'
+        dispatch(add(newEmployee));
+       
+    }
     return (
+        
         <div className="create">
+             <Modal handleCancelClick={handleCancelClick} handleConfirmClick={handleConfirmClick}/>
             <h2 className="create__title">Create Employee</h2>
             <form className="create__form">
                 <div className="create__form__box">
