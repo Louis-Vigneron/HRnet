@@ -1,17 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { populate, clear, store } from '../../Utils/Redux';
 import { useState, useEffect } from 'react';
+import { employees } from '../../Data/fakeEmployees'
 
-export default function Employees() {
-   /*  const totalEmployees = useSelector((state) => state.employees.length); */
-    const employees = useSelector((state) => state.employees);
+export default function Employees() {   
+    const employeesData = useSelector((state) => state.employees);
 
 
     const dispatch = useDispatch();
     const [selectValue, setSelectValue] = useState(10);
     const [index, setIndex] = useState(1);
-    let [sortEmployee, setSortEmployee] = useState(employees);
-    const [backUp, setBackUp] = useState(employees);
+    let [sortEmployee, setSortEmployee] = useState(employeesData);
+    const [backUp, setBackUp] = useState(employeesData);
     let totalEmployees = sortEmployee.length;
     let numberPage = Math.ceil(totalEmployees / selectValue)
 
@@ -40,7 +40,7 @@ export default function Employees() {
         document.getElementById('search').value = ''
     }
     const handlePopulateClick = () => {
-        dispatch(populate())
+        dispatch(populate(employees))
         setSortEmployee(store.getState().employees)
         setBackUp(store.getState().employees)
         document.getElementById('search').value = ''
@@ -105,12 +105,21 @@ export default function Employees() {
             arrows.querySelector('.arrows__down').classList = 'arrows__down arrows__down--active'
             arrows.querySelector('.arrows__up').classList = 'arrows__up arrows__up--unactive'
             const customSort = (a, b) => {
-                if (a.employee[filter] < b.employee[filter]) return 1;
-                if (a.employee[filter] > b.employee[filter]) return -1;
-                return 0;
+                if([filter] == 'dateOfBirth' || [filter] == 'startDate'){
+                    const dateA = new Date(a.employee[filter]);
+                    const dateB = new Date(b.employee[filter]);
+                    if (dateA < dateB) return 1;
+                    if (dateA > dateB) return -1;
+                    return 0;
+                } else {
+                    if (a.employee[filter].toLowerCase() < b.employee[filter].toLowerCase()) return 1;
+                    if (a.employee[filter].toLowerCase() > b.employee[filter].toLowerCase()) return -1;
+                    return 0;
+                }
+               
             };
             let copyEmployee = [...sortEmployee]
-            let backUp = [...employees]
+            let backUp = [...employeesData]
             copyEmployee.sort(customSort)            
             backUp.sort(customSort)
             setSortEmployee(copyEmployee)
@@ -125,12 +134,21 @@ export default function Employees() {
             arrows.querySelector('.arrows__up').classList = 'arrows__up arrows__up--active'
             arrows.querySelector('.arrows__down').classList = 'arrows__down arrows__down--unactive'
             const customSort = (a, b) => {
-                if (a.employee[filter] < b.employee[filter]) return -1;
-                if (a.employee[filter] > b.employee[filter]) return 1;
-                return 0;
-            };
+                if([filter] == 'dateOfBirth' || [filter] == 'startDate'){
+                    const dateA = new Date(a.employee[filter]);
+                    const dateB = new Date(b.employee[filter]);
+                    if (dateA < dateB) return -1;
+                    if (dateA > dateB) return 1;
+                    return 0;
+                } else {
+                    if (a.employee[filter].toLowerCase() < b.employee[filter].toLowerCase()) return -1;
+                    if (a.employee[filter].toLowerCase() > b.employee[filter].toLowerCase()) return 1;
+                    return 0;
+                }
+               
+            };          
             let copyEmployee = [...sortEmployee]
-            let backUp = [...employees]
+            let backUp = [...employeesData]
             copyEmployee.sort(customSort)
             backUp.sort(customSort)
             setSortEmployee(copyEmployee)

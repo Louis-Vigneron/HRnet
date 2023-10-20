@@ -1,5 +1,5 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit'
-import { employees } from '../Data/fakeEmployees'
+
 
 const employeesSlice = createSlice({
   name: 'employees',
@@ -10,8 +10,8 @@ const employeesSlice = createSlice({
     add: (state, action) => {        
         state.employees.push(action.payload)
     },
-    populate: state => {
-        state.employees = employees
+    populate: (state, action) => {
+        state.employees = [...state.employees, ...action.payload]
     },
     clear: state => {
       state.employees = []

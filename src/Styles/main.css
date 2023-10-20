@@ -111,6 +111,15 @@ a {
   width: 50%;
   margin-bottom: 25px;
 }
+.create__form__input--wrong {
+  border-color: #C36244;
+}
+.create__form__input--wrong::-moz-placeholder {
+  color: #C36244;
+}
+.create__form__input--wrong::placeholder {
+  color: #C36244;
+}
 .create__form__box {
   width: 45%;
   display: flex;
