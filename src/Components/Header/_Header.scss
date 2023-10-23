@@ -11,14 +11,16 @@
         object-fit: cover;
     }
 
-    &__nav{
-        width: 35%;
+    &__nav{        
         display: flex;
         justify-content: space-around;
         &__link{
             font-size: 32px;
             color: $color_2;
             transition: 0.5s;
+            text-align: center;
+            width: auto;
+            margin-right: 50px;
             &:hover{                
                 color: $color_4;
             }
@@ -29,4 +31,24 @@
             }
         }
     }
+    @media(max-width:$screen_tablet) {
+        &__nav{
+            &__link{
+                 font-size: 28px;
+            }
+        }
+        @media (max-width:$screen_mobile) {
+            &__nav{
+                flex-direction: column;
+                &__link{
+                    margin: 15px;
+                    margin-right: 50px;
+                }
+            }
+            
+        }
+       
+    }
+        
+    
 }

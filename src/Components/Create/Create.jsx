@@ -112,7 +112,7 @@ export default function Create() {
 const regexName = /^([A-Za-z]{3,20})?([-]{0,1})?([A-Za-z]{3,20})$/;
 const regexAddress = /^[A-Za-z0-9\s]{5,50}$/;
 const regexCity = /^[A-Za-z\s]{3,20}$/;
-const regexZipCode = /^\d{6}$/
+const regexZipCode = /^\d{5}$/
 const regexDate = /^\d/
 
 function checkInput(nodeDuChamp, regex) {

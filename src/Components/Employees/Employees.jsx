@@ -92,7 +92,7 @@ export default function Employees() {
 
     const sortByFilter = (e) => {
         let filter = e.target.id
-        let arrows = e.target
+        let arrows = e.target.closest('button')
         let resetUp = document.querySelectorAll('.arrows__up')
         let resetDown = document.querySelectorAll('.arrows__down')
         if (arrows.querySelector('.arrows__up').classList[1] === 'arrows__up--active') {
@@ -158,14 +158,14 @@ export default function Employees() {
     const handleSearch = (e) => {       
         sortEmployee = backUp
         let value = e.target.value.toLowerCase()
-        let searchEmployee = sortEmployee.filter(item => JSON.stringify(item).toLowerCase().includes(value))
-        setSortEmployee(searchEmployee)
+        let searchEmployee = sortEmployee.filter(item => JSON.stringify(item).toLowerCase().includes(value))      
+        setSortEmployee(searchEmployee)        
+        setIndex(1);
     }
-
 
     const idMin = totalEmployees ? (selectValue * index) - selectValue + 1 : 0;
     const idMax = Math.min((selectValue * index), totalEmployees);
-    const filteredEmployees = sortEmployee.slice(idMin - 1, idMax);
+    const filteredEmployees = sortEmployee.slice(idMin - 1, idMax );
 
     return (
         <div className="employees">
@@ -188,6 +188,7 @@ export default function Employees() {
             </div>
 
             <div className="employees__table">
+            <div className='employees__table__headerBackground'> </div>
                 <div className="employees__table__header">
                     <button className="employees__table__header__text" id='firstName' onClick={sortByFilter}>First Name
                         <div className='arrows'>
@@ -245,8 +246,11 @@ export default function Employees() {
                         </div>
                     </button>
                 </div>
-
-                <div className="employees__table__data">
+                { filteredEmployees.map((el) =>                       
+                            <div key={el.id}  className='backgroundEmployee'></div>                            
+                    )}
+                   
+                <div className="employees__table__data">             
                     {filteredEmployees.length === 0 ? <p className="employees__table__data__empty"> No data available in table</p> : filteredEmployees.map((el) =>
                         <div className="employees__table__data__info" key={el.id}>
                             <p className="employees__table__data__info__text">{el.employee.firstName}</p>

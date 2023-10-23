@@ -31,7 +31,6 @@ a {
      object-fit: cover;
 }
 .header__nav {
-  width: 35%;
   display: flex;
   justify-content: space-around;
 }
@@ -39,6 +38,9 @@ a {
   font-size: 32px;
   color: #ECECEE;
   transition: 0.5s;
+  text-align: center;
+  width: auto;
+  margin-right: 50px;
 }
 .header__nav__link:hover {
   color: #C36244;
@@ -47,6 +49,20 @@ a {
   color: #C36244;
   padding-bottom: 5px;
   border-bottom: 3px solid #C36244;
+}
+@media (max-width: 992px) {
+  .header__nav__link {
+    font-size: 28px;
+  }
+}
+@media (max-width: 992px) and (max-width: 768px) {
+  .header__nav {
+    flex-direction: column;
+  }
+  .header__nav__link {
+    margin: 15px;
+    margin-right: 50px;
+  }
 }
 
 .footer {
@@ -156,6 +172,18 @@ a {
   color: #ECECEE;
   border: 2px solid #000000;
 }
+@media (max-width: 768px) {
+  .create__form {
+    flex-direction: column;
+  }
+  .create__form__box {
+    width: 75%;
+    margin-bottom: 50px;
+  }
+  .create__form__button {
+    width: 50%;
+  }
+}
 
 .employees {
   display: flex;
@@ -186,21 +214,22 @@ a {
   font-size: 32px;
 }
 .employees__table {
+  position: relative;
   flex-grow: 1;
   margin: 25px 0;
   width: 90%;
   border: 5px solid #2B3A3E;
+  overflow-x: auto;
   background-color: #ECECEE;
   border-radius: 20px;
 }
 .employees__table__header {
+  position: absolute;
+  width: 100%;
+  top: 0px;
   padding: 25px 0;
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  border-radius: 15px 15px 0 0;
-  background-color: #9E8565;
-  border-bottom: 2px solid #000000;
   font-size: 20px;
 }
 .employees__table__header__text {
@@ -210,12 +239,24 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 10%;
+  min-width: 125px;
   text-align: center;
+}
+.employees__table__headerBackground {
+  position: sticky;
+  width: 100%;
+  border-radius: 15px 15px 0 0;
+  background-color: #9E8565;
+  border-bottom: 2px solid #000000;
+  height: 75px;
+  top: 0;
+  left: 0;
 }
 .employees__table__data {
   width: 100%;
   font-size: 20px;
+  position: absolute;
+  top: 76px;
 }
 .employees__table__data__info {
   width: 100%;
@@ -223,17 +264,14 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #2B3A3E;
-  border-radius: 5px;
-  transition: 0.5s;
 }
 .employees__table__data__info__text {
-  width: 10%;
+  min-width: 125px;
+  max-width: 125px;
   text-align: center;
   margin: 0;
-}
-.employees__table__data__info:hover {
-  background-color: #C36244;
+  pointer-events: none;
+  z-index: 2;
 }
 .employees__table__data__empty {
   text-align: center;
@@ -242,7 +280,7 @@ a {
   font-size: 30px;
   margin: 0;
   position: relative;
-  top: 55px;
+  top: 45px;
 }
 .employees__page {
   display: flex;
@@ -259,13 +297,15 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   font-size: 18px;
   width: 100%;
 }
 .employees__page__nav__box {
   display: flex;
   justify-content: center;
-  margin: 0 10px;
+  margin: 25px 10px;
+  flex-wrap: wrap;
 }
 .employees__page__nav__box__numberPage {
   width: 30px;
@@ -273,7 +313,7 @@ a {
   border-radius: 100%;
   margin: 0;
   transition: 0.5s;
-  margin: 0 5px;
+  margin: 5px;
   text-align: center;
   display: flex;
   align-items: center;
@@ -326,6 +366,18 @@ a {
   color: #ECECEE;
   border: 2px solid #000000;
 }
+@media (max-width: 992px) {
+  .employees__page__nav__button {
+    width: 100px;
+    margin: 5px;
+  }
+  .employees__page__nav__box {
+    margin: 25px 0;
+  }
+  .employees__state__button {
+    width: 30%;
+  }
+}
 
 .arrows {
   background: none;
@@ -363,6 +415,20 @@ a {
   width: 0;
   height: 0;
   border-style: solid;
+}
+
+.backgroundEmployee {
+  height: 74px;
+  min-width: 100%;
+  position: sticky;
+  left: 0;
+  border-bottom: 1px solid #2B3A3E;
+  border-radius: 5px;
+  transition: 0.5s;
+  z-index: 1;
+}
+.backgroundEmployee:hover {
+  background-color: #C36244;
 }
 
 .modal {

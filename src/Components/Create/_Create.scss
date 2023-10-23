@@ -78,4 +78,17 @@
             }
         }
     }
+    @media(max-width:$screen_mobile) {
+        &__form{
+            flex-direction: column;
+            &__box{
+                width: 75%;
+                margin-bottom: 50px;
+            }
+            &__button{
+                width: 50%;
+            }
+        }
+        
+    }
 }
