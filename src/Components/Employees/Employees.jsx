@@ -1,11 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { populate, clear, store } from '../../Utils/Redux';
 import { useState, useEffect } from 'react';
-import { employees } from '../../Data/fakeEmployees'
+import { employees } from '../../Data/fakeEmployees';
 
 export default function Employees() {   
     const employeesData = useSelector((state) => state.employees);
-
 
     const dispatch = useDispatch();
     const [selectValue, setSelectValue] = useState(10);
@@ -91,7 +90,7 @@ export default function Employees() {
     }
 
     const sortByFilter = (e) => {
-        let filter = e.target.id
+        let filter = e.target.closest('button').id
         let arrows = e.target.closest('button')
         let resetUp = document.querySelectorAll('.arrows__up')
         let resetDown = document.querySelectorAll('.arrows__down')

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './Styles/normalize.css'
-import './Styles/main.css'
+import './Styles/normalize.css';
+import './Styles/main.css';
 import Home from './Pages/Home';
 import Employees from './Pages/Employees';
 import reportWebVitals from './reportWebVitals';
