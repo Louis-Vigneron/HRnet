@@ -98,7 +98,7 @@
                     z-index: 2;
                 }
 
-               
+
             }
 
             &__empty {
@@ -212,13 +212,7 @@
     }
 
     @media(max-width:$screen_tablet) {
-        &__table {
-            &__header {}
-
-            &__data {
-                &__info {}
-            }
-        }
+        &__filter {}
 
         &__page {
             &__nav {
@@ -239,6 +233,19 @@
             }
         }
 
+        @media(max-width:$screen_mobile) {
+            &__filter {
+                flex-wrap: wrap;
+                &__search{
+                    margin: 10px;
+                }
+            }
+            &__state {
+                &__button {
+                    width:45%;
+                }
+            }
+        }
     }
 }
 
@@ -299,8 +306,9 @@
     border-radius: 5px;
     transition: 0.5s;
     z-index: 1;
-    &:hover{       
-          background-color:$color_4;     
-          
-     } 
+
+    &:hover {
+        background-color: $color_4;
+
+    }
 }

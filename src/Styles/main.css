@@ -384,6 +384,17 @@ a {
     width: 30%;
   }
 }
+@media (max-width: 992px) and (max-width: 768px) {
+  .employees__filter {
+    flex-wrap: wrap;
+  }
+  .employees__filter__search {
+    margin: 10px;
+  }
+  .employees__state__button {
+    width: 45%;
+  }
+}
 
 .arrows {
   background: none;
